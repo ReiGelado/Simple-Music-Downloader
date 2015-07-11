@@ -20,8 +20,6 @@ gelo = download.download()
 
 nome = raw_input('[+]Nome da Musica : \nR:')
 
-nome = 'Pollo Love Song'
-
 pool = multiprocessing.pool.ThreadPool(processes=1)
 
 url1 = None
