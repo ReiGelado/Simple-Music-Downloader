@@ -13,7 +13,7 @@ import multiprocessing
 
 
 print '[+]Bem Vindo ao Script Simple-Music-Downloader v0.1!\n'
-print '[+]By Rei_Gelado'
+print '[+]By Rei_Gelado - Arthur Aires\n'
 
 ice = core_krafta.server_krafta()
 gelo = download.download()
@@ -81,3 +81,52 @@ if download_20 == False:
 	processo = multiprocessing.Process(target = gelo.krafta_download,args = (nome_do_arquivo,link_download[0]))
 
 	processo.start()
+
+elif download_20 == True:
+
+	print '[+]Essa funcao,exige um computador que tenha um hardware melhor e boa conexao com internet...!\n'
+	print '[+]FUNCAO EM FASE BETA!\n'
+
+	deseja = raw_input('[+]Deseja continuar?(S\\N) \nR:')
+
+	if deseja == 'S' or 's':
+		print '[+]Iniciando for...'
+		pass
+	elif deseja == 'N' or 'n':
+		print '[+]Ok =)'
+		exit()
+	else:
+		print '[+]Como voce veio para aqui?'
+		exit()
+	for index_download in range(0,10):
+		print '[+]Iniciando Downloads.....!\n'
+
+		print '[+]Pegando Links......!\n'
+		processo = pool.apply_async(ice.krafta,('None',find_url[index_download],2,))
+
+		html_novo = processo.get()
+
+		processo =  pool.apply_async(ice.krafta_compile_url,(html_novo,2,))
+
+		link_download = processo.get()
+
+		processo = pool.apply_async(ice.krafta,('None',link_download[0],2,))
+
+		link_download_html = processo.get()
+
+		processo = pool.apply_async(ice.krafta_compile_url,(link_download_html,3))
+
+		link_download = processo.get()
+
+		if index_download == 0:
+			nome_do_arquivo = raw_input('[+]Qual o nome do arquivo que voce deseja salvar?\nR:')
+		else:
+			pass
+
+		nome_do_arquivo = nome_do_arquivo + '_' + str(index_download) + '_' + '.mp3'
+
+		print '[+]Iniciando Thread para Download .......!\n'
+
+		processo = multiprocessing.Process(target = gelo.krafta_download,args = (nome_do_arquivo,link_download[0]))
+
+		processo.start()
